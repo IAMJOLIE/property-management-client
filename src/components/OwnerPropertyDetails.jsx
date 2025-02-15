@@ -25,19 +25,20 @@ const OwnerPropertyDetails = () => {
       fetchPropertyDetails();
     }, [id]);
   
-    const handleDelete = async () => {
+    const handleDelete = async (propertyId) => {
 
-   
+    
         try {
           
 
       const token = localStorage.getItem("token");
-            const response = await fetch(`${API_URL}/api/owner-properties/${selectedProperty._id}`, {
+            const response = await fetch(`${API_URL}/api/owner-properties/${propertyId}`, {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
+                
             });
     
             if (!response.ok) {
@@ -45,10 +46,10 @@ const OwnerPropertyDetails = () => {
             }
     
             console.log(" Fastighet raderad:", propertyId);
+        
             setShowModal(false);
-            setProperty(null);
-            setSelectedProperty(null);
-            navigate("/owner/my-properties");
+            navigate("owner/my-properties")
+            
             
         } catch (error) {
             console.error(" Fel vid radering:", error.message);
@@ -135,7 +136,10 @@ const OwnerPropertyDetails = () => {
             
                             <div className="flex gap-4 mt-4">
                                 <button
-                                    onClick={handleDelete}
+                                   onClick={async () => {
+                                    await handleDelete(selectedProperty?._id); 
+                                    setShowModal(false);
+                                }}
                                     className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all"
                                 >
                                     Yes, delet
