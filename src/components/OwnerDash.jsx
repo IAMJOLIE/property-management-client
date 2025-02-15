@@ -2,7 +2,6 @@ import {  useNavigate } from "react-router-dom";
 import { FaUserCircle, FaHome, FaPlus, FaUsers, FaCog, FaSignOutAlt, FaBuilding, FaClipboardList } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 const OwnerDash = () => {
@@ -103,7 +102,13 @@ const OwnerDash = () => {
                         <FaPlus  /> Add Property
                     </button>
 
-                  
+                    <button 
+                        onClick={() => navigate("my-properties")}
+                        className="flex items-center gap-4 px-5 py-3 w-full text-left text-lg font-medium rounded-lg hover:bg-[#374151] transition-all duration-300"
+                    >
+                        <FaBuilding /> My Properties
+                    </button>
+
                     <button onClick={() => navigate("requests-page")} className="menu-button relative flex items-center gap-4 px-5 py-3 w-full text-left text-lg font-medium rounded-lg hover:bg-[#374151] transition-all duration-300">
                     <FaClipboardList /> Requests
     {unreadRequests > 0 && (
