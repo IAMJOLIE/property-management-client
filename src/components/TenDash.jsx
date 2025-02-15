@@ -78,7 +78,7 @@ const TenDash = () => {
                 <FaUserCircle className="text-4xl text-gray-300 " />
                 <div  >
                     <h2 className="text-lg font-semibold ">{ownerName}</h2>
-                    <p className="text-sm text-gray-400">Owner</p>
+                    <p className="text-sm text-gray-400">Tenant</p>
                 </div>
             </div>
 
