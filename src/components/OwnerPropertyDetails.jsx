@@ -48,7 +48,7 @@ const OwnerPropertyDetails = () => {
             setShowModal(false);
             setProperty(null);
             setSelectedProperty(null);
-            navigate("my-properties");
+            navigate("/owner/my-properties");
             
         } catch (error) {
             console.error(" Fel vid radering:", error.message);
