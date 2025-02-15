@@ -66,10 +66,7 @@ const RentRequestButton = ({ propertyId }) => {
     const handleCancelRequest = async () => {
         const token = localStorage.getItem("token");
 
-        if (!token) {
-            setMessage("You need to log in first.");
-            return;
-        }
+      
 
         try {
             const response = await fetch(`${API_URL}/api/rent/${propertyId}/cancel`, {
@@ -89,6 +86,8 @@ const RentRequestButton = ({ propertyId }) => {
             console.log(" Hyresförfrågan borttagen:", data);
             setMessage("Request Canceled");
             setHasRequested(false);
+
+            fetchRentRequests(); 
 
         } catch (error) {
             console.error(" Error canceling rent request:", error);

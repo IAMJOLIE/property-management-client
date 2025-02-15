@@ -70,7 +70,8 @@ export const RequestProvider = ({ children }) => {
             requests, 
             setRequests, 
             fetchRentRequests,  
-            updateRequests,  
+            updateRequests, 
+            cancelRequest, 
             loading 
         }}>
             {children}

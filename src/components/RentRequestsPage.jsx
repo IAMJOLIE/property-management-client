@@ -9,7 +9,7 @@ const RentRequestsPage = () => {
 
     useEffect(() => {
         fetchRentRequests();
-    }, []);
+    }, [requests]);
 
     if (loading) return <p>Loading your rent requests...</p>;
 
