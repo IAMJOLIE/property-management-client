@@ -3,7 +3,7 @@ import { FaHome,  FaUsers, FaCog, FaSignOutAlt, FaUserCircle, FaClipboardList } 
 import { MdOutlineFavorite } from "react-icons/md";
 
 import { useEffect, useState } from "react";
-import { API_URL } from "../../../server/config/api";
+
 
 const TenDash = () => {
     const location = useLocation()
