@@ -27,10 +27,7 @@ const OwnerPropertyDetails = () => {
   
     const handleDelete = async () => {
 
-      if (!selectedProperty || !selectedProperty._id) {
-        console.error(" Ingen fastighet vald för radering!");
-        return;
-    }
+   
         try {
           
 
@@ -51,7 +48,7 @@ const OwnerPropertyDetails = () => {
             setShowModal(false);
             setProperty(null);
             setSelectedProperty(null);
-            navigate(-1);
+            navigate("my-properties");
             
         } catch (error) {
             console.error(" Fel vid radering:", error.message);
