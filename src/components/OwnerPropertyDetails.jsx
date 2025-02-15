@@ -48,7 +48,7 @@ const OwnerPropertyDetails = () => {
             console.log(" Fastighet raderad:", propertyId);
         
             setShowModal(false);
-            navigate("owner/my-properties")
+           
             
             
         } catch (error) {
