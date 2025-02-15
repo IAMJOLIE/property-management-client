@@ -25,15 +25,22 @@ const OwnerPropertyDetails = () => {
       fetchPropertyDetails();
     }, [id]);
   
-    const handleDelete = async (propertyId) => {
+    const handleDelete = async () => {
 
-        const confirmDelete = window.confirm(`Are you sure that you want to delet the property${propertyId.name}`)
-        if(!confirmDelete) return;
-        console.log(" Försöker radera fastighet med ID:", propertyId);
-    
+      if (!selectedProperty || !selectedProperty._id) {
+        console.error(" Ingen fastighet vald för radering!");
+        return;
+    }
         try {
-            const response = await fetch(`${API_URL}/api/owner-properties/${propertyId}`, {
+          
+
+      const token = localStorage.getItem("token");
+            const response = await fetch(`${API_URL}/api/owner-properties/${selectedProperty._id}`, {
                 method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+              },
             });
     
             if (!response.ok) {
@@ -41,9 +48,10 @@ const OwnerPropertyDetails = () => {
             }
     
             console.log(" Fastighet raderad:", propertyId);
-            setProperty(property.filter((p) => p._id !== selectedProperty._id));
             setShowModal(false);
-            setSelectedProperty(null)
+            setProperty(null);
+            setSelectedProperty(null);
+            navigate(-1);
             
         } catch (error) {
             console.error(" Fel vid radering:", error.message);
