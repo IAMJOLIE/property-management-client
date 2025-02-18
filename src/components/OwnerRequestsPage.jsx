@@ -13,7 +13,7 @@ const OwnerRequestsPage = () => {
         const fetchRequests = async () => {
             try {
                 const token = localStorage.getItem("token");
-                console.log("🔹 Token skickas:", token);
+                
         
                 const response = await fetch(`${API_URL}/api/rent/owner-requests`, {
     headers: { Authorization: `Bearer ${token}` },
@@ -28,7 +28,7 @@ const OwnerRequestsPage = () => {
                 setRequests(data);
             } catch (error) {
                 console.error(" Error fetching tenant requests:", error);
-            }
+            } 
         };
         
 
@@ -60,7 +60,7 @@ const OwnerRequestsPage = () => {
             );
         } catch (error) {
             console.error(" Error updating request status:", error);
-        }
+        }   
     };
     
 

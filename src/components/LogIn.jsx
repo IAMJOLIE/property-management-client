@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import axios from "axios";
 
 import { NavLink, useNavigate } from "react-router-dom"
+import Skeleton from "react-loading-skeleton";
 
 
 
@@ -12,7 +13,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const LogIn = () => {
     const [email, setEmail] = useState("");
-   
+   const [loading, setLoading] = useState(false)
 const [showPassword, setShowPassword] = useState(false)
 const [formData, setFormData] = useState({ email: "", password: "", role: ""});
 const [error, setError] = useState("")
@@ -38,6 +39,8 @@ const handleChange = (e) => {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
+
     console.log(" Skickar login-data:", formData);
 
     try {
@@ -48,7 +51,7 @@ const handleSubmit = async (e) => {
         }
         
         console.log(" Inloggning lyckades!", response.data);
-        console.log(" Token:", response.data.token);
+
         console.log(" Användarroll:", response.data.role); 
         console.log(" Auserid:", response.data.userId);
         console.log(" Backend-svar vid inloggning:", response.data);
@@ -87,6 +90,8 @@ const handleSubmit = async (e) => {
     } catch (error) {
         console.log(" Inloggning misslyckades:", error.response?.data?.message || error.message);
         setError(error.response?.data?.message || "något fick fel. försök igen");
+    }  finally{
+        setLoading(false)
     }
 };
 
@@ -157,7 +162,9 @@ const handleSubmit = async (e) => {
                 <a href="#" className="text-blue-300  text-sm font-medium hover:text-blue-400 "> Forget Password</a>
                 </div>
 
-                <button type="submit" className="w-full  p-3 rounded-lg my-4 text-white bg-[#1F2937] hover:bg-[#374151] ">Log In</button>
+                <button type="submit" disabled={loading} className= {`w-full  p-3 rounded-lg my-4 text-white bg-[#1F2937] hover:bg-[#374151] text-center flex items-center justify-center ${loading ? "opacity-90 cursor-not-allowed" : ""}` }>
+                   {loading ? ( <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white text-center"></div> ) : ("Log in")}
+                    </button>
 
       
 
