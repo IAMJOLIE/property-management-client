@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const FavoritPage = () => {
     const [favoriteProperties, setFavoriteProperties] = useState([]);
     const nav = useNavigate();
-    const token = localStorage.getItem("token"); // Hämta token
+    const [loading, setLoading] = useState(true)
+    const token = localStorage.getItem("token"); 
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -58,6 +60,8 @@ const FavoritPage = () => {
                 setFavoriteProperties(propertiesData);
             } catch (error) {
                 console.error(" Fel vid hämtning av favoriter:", error);
+            } finally {
+                setLoading(false)
             }
         };
         
@@ -74,7 +78,24 @@ const FavoritPage = () => {
         const path = role === "owner" ? `/owner/property/${id}` : `/tenant/property/${id}`;
         nav(path);
     };
-
+    if (loading) return (
+        <div > 
+        <h2 className="text-3xl font-bold mb-6">My Favorites</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[...Array(2)].map((_, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-md p-2">
+                    <Skeleton height={160} className="rounded-lg" />
+                    <Skeleton height={25} width="80%" className="mt-3" />
+                    <div className=" ">
+                        <Skeleton height={15} width="20%" /> 
+                       
+                    </div>
+                    <Skeleton height={10} className="mt-2" />
+                </div>
+            ))}
+        </div>
+        </div>
+    );
     return (
         <div className="">
             <h2 className="text-3xl font-bold mb-6">My Favorites</h2>

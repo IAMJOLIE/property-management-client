@@ -5,13 +5,39 @@ import { useRequests } from "../context/RequestContext";
 const RentRequestsPage = () => {
     const { requests, cancelRequest, fetchRentRequests, loading } = useRequests(); 
     const nav = useNavigate();
+   
 
 
     useEffect(() => {
         fetchRentRequests();
     }, [requests]);
 
-    if (loading) return <p>Loading your rent requests...</p>;
+    if (loading) return (
+        <div  className="p-6">
+       <h2 className="text-3xl font-bold mb-6">My Rent Requests</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(2)].map((_, index) => (
+              <div key={index} className="bg-white p-5 rounded-lg shadow-lg">
+              <Skeleton height={160} className="rounded-md" />
+              <h3 className="text-lg font-semibold text-gray-800 mt-4">
+                  <Skeleton width="80%" />
+              </h3>
+              <p className="text-gray-600 mt-1">
+                  <Skeleton width="50%" />
+              </p>
+              <p className="text-gray-600 mt-1">
+                  <Skeleton width="50%" />
+              </p>
+             
+              <div className="mt-4 flex gap-4">
+                  <Skeleton width={100} height={40} />
+                  <Skeleton width={100} height={40} />
+              </div>
+          </div>
+            ))}
+        </div>
+        </div>
+    );
 
     return (
         <div className="p-6">

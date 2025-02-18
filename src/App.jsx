@@ -23,6 +23,7 @@ import FavoritPage from './components/FavoritPage'
 import RentRequestsPage from './components/RentRequestsPage'
 import OwnerRequestsPage from './components/OwnerRequestsPage'
 import { RequestProvider } from './context/RequestContext'
+import NotFound from './pages/NotFound'
 
 
 
@@ -39,6 +40,8 @@ function App() {
       <Routes>
       <Route path='/' element={<LogIn/>}/> 
         <Route path='/regist-user' element={<RegistUser/>}/>
+             
+ <Route path="*" element={<NotFound/>} /> 
 
         <Route path='/owner' element={<ProtectedRoute element={<OwnerLayout/>} requiredRole="owner" />}>
         <Route path="properties" element={<PropertyList />} />
@@ -75,8 +78,7 @@ function App() {
       
       
        
-        
- <Route path="*" element={<Navigate to="/" />} /> 
+   
        
         
 

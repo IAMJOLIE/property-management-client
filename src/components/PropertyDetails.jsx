@@ -5,22 +5,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useRequests } from "../context/RequestContext"; 
 import FavoriteButton from "./FavoriteButton";
+import Skeleton from "react-loading-skeleton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const PropertyDetails = () => {
     const { id } = useParams();
+   
     const nav = useNavigate();
     const [property, setProperty] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const [message, setMessage] = useState("");
+
     const role = localStorage.getItem("role"); 
 
     const { requests, setRequests, cancelRequest } = useRequests(); 
 
     useEffect(() => {
         const fetchProperty = async () => {
+
             try {
                 const response = await fetch(`${API_URL}/api/properties/${id}`);
                 if (!response.ok) throw new Error("Property not found");
@@ -33,8 +37,8 @@ const PropertyDetails = () => {
                 }
             } catch (error) {
                 console.error(" Error fetching property:", error);
-            } finally {
-                setLoading(false);
+            }  finally {
+                setLoading(false)
             }
         };
         fetchProperty();
@@ -80,10 +84,20 @@ const PropertyDetails = () => {
         } catch (error) {
             console.error(" Error sending rent request:", error);
             setMessage(error.message);
-        }
+        } 
     };
 
-    if (loading) return <p>Loading property details...</p>;
+    if (loading) return   <div className="max-w-6xl mx-auto h-full">
+    <Skeleton height={300} width="60%" className="rounded-lg mt-6" />
+    <Skeleton height={120} width="15%" className="mt-6" />
+   
+    <Skeleton height={30} width="60%" className="mt-10" />
+    <Skeleton height={20} width="40%" className="mt-2" />
+    <Skeleton height={30} width="40%" className="mt-4" />
+    <Skeleton height={20} width="40%" className="mt-2" />
+    <Skeleton height={20} width="30%" className="mt-2" />
+   
+  </div> ;
 
     const visibleThumbnails = property.images ? property.images.slice(0, 3) : [];
     const hasMoreImages = property.images && property.images.length > 3;
@@ -100,7 +114,12 @@ const PropertyDetails = () => {
     };
 
     return (
+
+
+
         <div className="max-w-6xl mx-auto h-full">
+
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-full">
                
                 <div className="col-span-2">

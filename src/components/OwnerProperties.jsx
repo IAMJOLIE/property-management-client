@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa"
+import Skeleton from "react-loading-skeleton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const OwnerProperties = () => {
    const [showModal, setShowModal] = useState(false)
    const [selectedProperty, setSelectedProperty] = useState(null);
+   const [loading, setLoading] = useState(true)
 
     const [properties, setProperties] = useState([]);
     const navigate = useNavigate();
@@ -25,6 +27,8 @@ const OwnerProperties = () => {
                 setProperties(data);
             } catch (error) {
                 console.error(" Fel vid hämtning av fastigheter:", error.message);
+            } finally {
+                setLoading(false)
             }
         };
 
@@ -39,10 +43,28 @@ const OwnerProperties = () => {
     const handleNavigate = (id) => {
         navigate(`/owner/ownerdetails/${id}`);
     };
+    if (loading) return (
+        <div className="p-6" > 
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6">My Properties</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
+            {[...Array(2)].map((_, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-2 hover:shadow-lg transition p-4">
+                    <Skeleton height={160} className="rounded-lg" />
+                    <Skeleton height={25} width="80%" className="mt-3" />
+                    <div className="flex gap-6 text-gray-600 text-sm mt-1">
+                        <Skeleton height={15} width="30%" />
+                        <Skeleton height={15} width="30%" />
+                    </div>
+                    <Skeleton height={50} className="mt-2" />
+                </div>
+            ))}
+        </div>
+        </div>
+    );
     
   
     return (
-        <div className="p-6" >
+        <div className="p-6" > 
             <h2 className="text-3xl font-semibold text-gray-800 mb-6">My Properties</h2>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
                 {properties.length > 0 ? (
