@@ -71,7 +71,7 @@ const PropertyList = () => {
                     </div>
                 ))
             ) : (
-                <p className="text-gray-600 text-lg">Add Properties for listing</p>
+                <p className="text-gray-600 text-lg">No Property for Rent</p>
             )}
         </div>
     </div>
