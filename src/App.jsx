@@ -24,12 +24,29 @@ import RentRequestsPage from './components/RentRequestsPage'
 import OwnerRequestsPage from './components/OwnerRequestsPage'
 import { RequestProvider } from './context/RequestContext'
 import NotFound from './pages/NotFound'
+import { useEffect, useState } from 'react'
+import SmallScreenBlock from './components/SmallScreenBlock'
 
 
 
 
 function App() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 900);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  if (isSmallScreen) {
+    return <SmallScreenBlock/>;
+  }
 
 
   return (

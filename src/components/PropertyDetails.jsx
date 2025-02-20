@@ -185,17 +185,17 @@ const PropertyDetails = () => {
                     >
                         ← Go Back
                     </button>
-                    <h3 className="text-3xl font-bold">{property.name}</h3>
+                    <h3 className="text-2xl font-bold">{property.name}</h3>
                     <p className="text-xl text-gray-700 mt-3">Price: ${property.price}</p>
                     <p className="text-gray-700 mt-3">Size: {property.size} m²</p>
 
                     {property.owner && (
                         <div className="mt-9 p-2 bg-gray-100 rounded-lg">
                             <h3 className="text-lg font-semibold mt-1">Owner Details</h3>
-                            <p className="mt-1 mb-2"><strong>Name:</strong> {property.owner.firstName} {property.owner.lastName}</p>
-                            <p className="mt-1 mb-2">
-            <strong>Email:</strong> 
-            <a href={`mailto:${property.owner.email}`} className="text-blue-500 hover:underline">
+                            <p className="mt-1 mb-2 break-words"><strong>Name:</strong> {property.owner.firstName} {property.owner.lastName}</p>
+                            <p className="mt-1 mb-1 break-words ">
+            <strong >Email:</strong> 
+            <a href={`mailto:${property.owner.email}`} className="text-blue-500 hover:underline  ">
                 {property.owner.email}
             </a>
         </p>
